@@ -14,11 +14,3 @@ struct dorm_t create_dorm(char *_name, unsigned short _capacity, enum gender_t _
   return dorm;
 }
 
-short findDormId (char *_name, dorm *list, int length ){
-    for (short i = 0; i<length; i++){
-        if (strcmp(list[i].name, _name)==0)
-            return i;
-    }
-
-    return -1;
-}

@@ -18,5 +18,5 @@ typedef struct dorm_t
 }dorm;
 
 struct dorm_t create_dorm(char *_name, unsigned short _capacity, enum gender_t _gender);
-short findDormId(char *_name, dorm *list, int length );
+
 #endif

@@ -14,7 +14,6 @@ typedef struct student_t
 } student;
 
 student create_student(char *_id, char *_name, char *_year,enum gender_t _gender);
-short findStudentId(char *_name, student *list, int length );
 void assign ( student *student_, dorm *dorm_ );
 void unassign ( student *student_, dorm* dorm_ );
 void moveStudent ( student *migrant, dorm *newResidence , dorm *oldResidence );

@@ -125,7 +125,34 @@ void print_all_dorms() {
     }
 }
 
+short findStudentId ( char *_id, struct student_t *students, int num_students ) {
+    for ( short i=0; i< num_students; i++ ) {
+        if ( strcmp(students[i].id, _id) == 0 )
+            return i;
+    }
+
+    return -1;
+}
+
+
+short findDormId (char *_name, struct dorm_t *dorms, int num_dorms ){
+    for (short i = 0; i<num_dorms; i++){
+        if (strcmp(dorms[i].name, _name)==0)
+            return i;
+    }
+
+    return -1;
+}
+
 int main(int argc, char **argv) {
+    dorm* LEFT = (dorm*) malloc(sizeof(dorm));
+    strcpy(LEFT->name,"left");
+    LEFT->capacity = 10;
+    LEFT->gender = GENDER_FEMALE;
+    LEFT->residents_num = 0;
+    dorm *dorms = (dorm*) malloc(1 * sizeof(dorm));
+    student *students = (student*) malloc(1 * sizeof(student));
+
     char input[100];
     char *token;
 
@@ -209,11 +236,25 @@ int main(int argc, char **argv) {
                   for (int i = 0; i < num_dorms; i++) {
                         printf("%s|%d|%s|%d\n", dorms[i].name, dorms[i].capacity, dorms[i].gender == GENDER_MALE ? "male" : "female", dorms[i].residents_num);
                 }
+            } else if (strcmp(token, "dorm-empty")==0){
+                token = strtok(NULL, "#\n");
+                char *dorm_name = token;
+                short target = findDormId(dorm_name, dorms, totalDorm);
+
+                for (int i = 0; i<totalStudent; i++){
+                    if (students[i],dorms != NULL){
+                        if ( strcmp(students[i].dorm->name, dorm_name) == 0 ) {
+                            unassign(&students[i], &dorms[target]);                        
+                    }
+                }
+            }
             } else if (strcmp( token, "student-leave")==0){
                 token = strtok (NULL, "#\n");
-                                for (int i = 0; i < num_students; i++) {
-                    printf("%s|%s|%s|%s|left\n", students[i].id, students[i].name, students[i].year, students[i].gender == GENDER_MALE ? "male" : "female");
-            }    
+                short studentId = findStudentId(token, students, num_students);
+                short dormId = findDormId(students->dorm->name, dorms, num_dorms);
+                unassign(&students[studentId], &dorms[dormId]);
+                students[studentId].dorm = LEFT;
+               
             } else if (strcmp(token, "---") == 0) {
                 break;
             }
@@ -222,6 +263,7 @@ int main(int argc, char **argv) {
 
     free_students();
     free_dorms();
+    free(LEFT);
     
     return 0;
 }
