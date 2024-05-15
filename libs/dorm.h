@@ -18,5 +18,5 @@ struct dorm_t
 };
 
 struct dorm_t create_dorm(char *_name, unsigned short _capacity, enum gender_t _gender);
-
+short findDormId(char *_name, struct dorm_t *list, int length );
 #endif
