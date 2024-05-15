@@ -4,16 +4,19 @@
 #include "gender.h"
 #include "dorm.h"
 
-struct student_t
+typedef struct student_t
 {
     char id[12];
     char name[40];
     char year[5];
     enum gender_t gender;
     struct dorm_t *dorm;
-};
+} student;
 
-struct student_t create_student(char *_id, char *_name, char *_year,enum gender_t _gender);
-short findStudentId(char *_name, struct dorm_t *list, int length );
-
+student create_student(char *_id, char *_name, char *_year,enum gender_t _gender);
+short findStudentId(char *_name, student *list, int length );
+void assign ( student *student_, dorm *dorm_ );
+void unassign ( student *student_, dorm* dorm_ );
+void moveStudent ( student *migrant, dorm *newResidence , dorm *oldResidence );
+void emptyDorm ( dorm* residence, student** potentialResidents, unsigned short totalPR );
 #endif
